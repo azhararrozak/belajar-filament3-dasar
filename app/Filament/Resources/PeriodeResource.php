@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryNilaiResource\Pages;
-use App\Filament\Resources\CategoryNilaiResource\RelationManagers;
-use App\Models\CategoryNilai;
+use App\Filament\Resources\PeriodeResource\Pages;
+use App\Filament\Resources\PeriodeResource\RelationManagers;
+use App\Models\Periode;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -14,29 +14,20 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Set;
-use Illuminate\Support\Str;
 
-class CategoryNilaiResource extends Resource
+class PeriodeResource extends Resource
 {
-    protected static ?string $model = CategoryNilai::class;
+    protected static ?string $model = Periode::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar';
 
-    protected static ?string $navigationLabel = 'Category Nilai';
-
+    protected static ?string $navigationLabel = 'Periode';
+    
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Card::make()
-                    ->schema([
-                        TextInput::make('name')
-                        ->live(onBlur: true)
-                        ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
-                        TextInput::make('slug'),
-                    ]),
+                TextInput::make('name')->required(),
             ]);
     }
 
@@ -44,8 +35,8 @@ class CategoryNilaiResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('slug'),
+                TextColumn::make('name')
+                    ->label('Nama Periode')
             ])
             ->filters([
                 //
@@ -64,7 +55,7 @@ class CategoryNilaiResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageCategoryNilais::route('/'),
+            'index' => Pages\ManagePeriodes::route('/'),
         ];
     }
 }
