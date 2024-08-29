@@ -58,4 +58,15 @@ class PeriodeResource extends Resource
             'index' => Pages\ManagePeriodes::route('/'),
         ];
     }
+
+    public static function getLabel(): ?string
+    {
+        $locale = app()->getLocale();
+
+        if ($locale === 'id') {
+            return 'Periode';
+        } else {
+            return 'Periode';
+        }
+    }
 }

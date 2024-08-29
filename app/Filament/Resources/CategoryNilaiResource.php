@@ -24,8 +24,6 @@ class CategoryNilaiResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
-    protected static ?string $navigationLabel = 'Category Nilai';
-
     public static function form(Form $form): Form
     {
         return $form
@@ -66,5 +64,16 @@ class CategoryNilaiResource extends Resource
         return [
             'index' => Pages\ManageCategoryNilais::route('/'),
         ];
+    }
+
+    public static function getLabel(): ?string
+    {
+        $locale = app()->getLocale();
+
+        if ($locale === 'id') {
+            return 'Kategori Nilai';
+        } else {
+            return 'Category';
+        }
     }
 }

@@ -16,9 +16,4 @@ class ManageCategoryNilais extends ManageRecords
             Actions\CreateAction::make(),
         ];
     }
-
-    public function getTitle(): string
-    {
-        return 'Category Nilai';
-    }
 }

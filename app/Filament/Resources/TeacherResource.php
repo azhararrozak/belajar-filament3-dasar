@@ -17,6 +17,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Card;
 
 class TeacherResource extends Resource
 {
@@ -30,10 +31,13 @@ class TeacherResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('nip')->nullable()->label('NIP'),
-                TextInput::make('name')->required(),
-                Textarea::make('address')->nullable(),
-                FileUpload::make('profile')->directory('teachers')->avatar(),
+                Card::make()
+                    ->schema([
+                        TextInput::make('nip')->nullable()->label('NIP'),
+                        TextInput::make('name')->required(),
+                        Textarea::make('address')->nullable(),
+                        FileUpload::make('profile')->directory('teachers')->visibility('public')->avatar(),
+                    ])->columns(2),
             ]);
     }
 
@@ -69,5 +73,16 @@ class TeacherResource extends Resource
         return [
             'index' => Pages\ManageTeachers::route('/'),
         ];
+    }
+
+    public static function getLabel(): ?string
+    {
+        $locale = app()->getLocale();
+
+        if ($locale === 'id') {
+            return 'List Guru';
+        } else {
+            return 'Teachers';
+        }
     }
 }
