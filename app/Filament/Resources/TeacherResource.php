@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TeacherResource\Pages;
 use App\Filament\Resources\TeacherResource\RelationManagers;
+use App\Filament\Resources\TeacherResource\RelationManagers\ClassroomRelationManager;
+use App\Models\Classroom;
 use App\Models\Teacher;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
@@ -18,6 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Card;
+
 
 class TeacherResource extends Resource
 {
@@ -66,6 +69,13 @@ class TeacherResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            ClassroomRelationManager::class,
+        ];
     }
 
     public static function getPages(): array

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Set;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
 
 class SubjectResource extends Resource
@@ -41,7 +42,9 @@ class SubjectResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('kode')->label('Kode Mata Pelajaran'),
+                TextColumn::make('name')->label('Nama Mata Pelajaran'),
+                TextColumn::make('slug')->label('Slug'),
             ])
             ->filters([
                 //
